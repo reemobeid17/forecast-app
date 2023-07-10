@@ -1,11 +1,6 @@
 import { Outlet } from "react-router-dom";
 
 import NavBar from "./NavBar";
-import { Fragment } from "react";
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
 
 const Layout = () => {
   return (
