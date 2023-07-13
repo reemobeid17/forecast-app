@@ -1,12 +1,13 @@
-import { Day, WeatherData } from "../api/weather";
-import ChartSkeleton from "./ChartSkeleton";
 import { useEffect, useState } from "react";
-import { HOUR_RANGES, TIME_OF_DAY } from "../utils/constants";
-import { dayOfTheWeek } from "../utils/dates";
+import clsx from "clsx";
+
+import ChartSkeleton from "./ChartSkeleton";
 import ChartHeader from "./ChartHeader";
 import ChartBody from "./ChartBody";
+import { Day, WeatherData } from "../api/weather";
+import { HOUR_RANGES, TIME_OF_DAY } from "../utils/constants";
+import { dayOfTheWeek } from "../utils/dates";
 import ArrowIcon from "../assets/icons/arrow.svg";
-import clsx from "clsx";
 
 interface ChartContainerProps {
   weatherData?: WeatherData;
