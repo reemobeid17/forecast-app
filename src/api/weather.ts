@@ -44,7 +44,12 @@ const fetchWeatherData = async ({
     const params = new URLSearchParams();
     params.append("include", "days,hours");
     params.append("unitGroup", "us");
-    params.append("key", process.env.REACT_APP_VISUAL_CROSSING_API_KEY || "");
+    // Adding API key here for demo
+    params.append(
+      "key",
+      process.env.REACT_APP_VISUAL_CROSSING_API_KEY ||
+        "CKJDNRY3H4J8QJWQ27SSMG2JY"
+    );
     params.append("contentType", "json");
 
     const apiURL = `${WEATHER_API}${encodedLocation}/${startDate}/${endDate}?${params.toString()}`;
