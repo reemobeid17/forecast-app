@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
 import { Hour } from "../api/weather";
-import { drawLines } from "../utils/dates";
 import { ARBITRARY_LINES } from "../utils/constants";
 
 interface ChartBodyProps {

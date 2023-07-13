@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 import { Day } from "../api/weather";
 import { WEEKDAYS } from "../utils/constants";
 import {
@@ -36,12 +34,7 @@ const ChartHeader = ({
   const month = monthLabel(datetime);
   return (
     <div className="mb-6">
-      <h1
-        className={clsx("text-3xl font-bold text-center", {
-          "text-secondary": index === 0,
-        })}
-      >
-        {index <= 1 && <span>{index === 0 ? "This " : "Next "}</span>}
+      <h1 className="text-3xl font-bold text-center">
         {WEEKDAYS[weekdayNumber]} the {dayNumber}
         {daySuffix} of {month}
       </h1>
