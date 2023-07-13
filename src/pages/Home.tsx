@@ -3,13 +3,18 @@ import { isMobile } from "react-device-detect";
 
 import TextField from "../components/FormFields/TextField";
 import DropdownField from "../components/FormFields/DropdownField";
+import ChartContainer from "../components/ChartContainer";
 import LocationIcon from "../assets/icons/location-pin.svg";
 import CalendarIcon from "../assets/icons/calendar.svg";
 import ClockIcon from "../assets/icons/clock.svg";
 import useDebounce from "../hooks/useDebounce";
-import { WEEKDAY_OPTIONS, TIMEOFDAY_OPTIONS } from "../utils/constants";
-import ChartContainer from "../components/ChartContainer";
 import useWeatherData from "../hooks/useWeatherData";
+import {
+  WEEKDAY_OPTIONS,
+  TIMEOFDAY_OPTIONS,
+  MOBILE_REQUEST_SIZE,
+  DESKTOP_REQUEST_SIZE,
+} from "../utils/constants";
 
 const Home = () => {
   const [location, setLocation] = useState<string>("");
@@ -24,7 +29,7 @@ const Home = () => {
   );
 
   const previousPage = () => {
-    const pageSize = isMobile ? 6 : 13;
+    const pageSize = isMobile ? MOBILE_REQUEST_SIZE : DESKTOP_REQUEST_SIZE;
 
     setStartDate((prevStartDate) => {
       const newStartDate = new Date(prevStartDate);
@@ -34,7 +39,7 @@ const Home = () => {
   };
 
   const nextPage = () => {
-    const pageSize = isMobile ? 6 : 13;
+    const pageSize = isMobile ? MOBILE_REQUEST_SIZE : DESKTOP_REQUEST_SIZE;
 
     setStartDate((prevStartDate) => {
       const newStartDate = new Date(prevStartDate);

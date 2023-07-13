@@ -36,6 +36,9 @@ export const TIMEOFDAY_OPTIONS: Option[] = TIME_OF_DAY.map((time, index) => ({
   label: time,
 }));
 
+export const MOBILE_REQUEST_SIZE = 6;
+export const DESKTOP_REQUEST_SIZE = 13;
+
 export const ARBITRARY_LINES = {
   id: "arbitraryLine",
   beforeDatasetsDraw: (chart: any) => {

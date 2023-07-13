@@ -1,4 +1,7 @@
 import { Day } from "../api/weather";
+import RainIcon from "../assets/icons/rain.svg";
+import WindIcon from "../assets/icons/wind.svg";
+import HumidityIcon from "../assets/icons/humidity.svg";
 import { WEEKDAYS } from "../utils/constants";
 import {
   dayOfTheMonth,
@@ -6,9 +9,6 @@ import {
   monthLabel,
   nthNumber,
 } from "../utils/dates";
-import RainIcon from "../assets/icons/rain.svg";
-import WindIcon from "../assets/icons/wind.svg";
-import HumidityIcon from "../assets/icons/humidity.svg";
 
 interface ChartHeaderProps {
   day: Day;

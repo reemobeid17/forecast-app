@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
+
 import fetchWeatherData, { WeatherData } from "../api/weather";
 import { formatDate } from "../utils/dates";
+import { DESKTOP_REQUEST_SIZE, MOBILE_REQUEST_SIZE } from "../utils/constants";
 
 const useWeatherData = (
   location: string,
@@ -10,7 +12,7 @@ const useWeatherData = (
   const { data, isLoading, isError, error } = useQuery<WeatherData>(
     ["weatherData", location, startDate, isMobile],
     async () => {
-      const pageSize = isMobile ? 6 : 13;
+      const pageSize = isMobile ? MOBILE_REQUEST_SIZE : DESKTOP_REQUEST_SIZE;
       let endDate = new Date(startDate);
       endDate.setDate(endDate.getDate() + pageSize);
 
