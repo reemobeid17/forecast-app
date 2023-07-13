@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
+import { isMobile } from "react-device-detect";
 
 import TextField from "../components/FormFields/TextField";
 import DropdownField from "../components/FormFields/DropdownField";
@@ -6,32 +7,51 @@ import LocationIcon from "../assets/icons/location-pin.svg";
 import CalendarIcon from "../assets/icons/calendar.svg";
 import ClockIcon from "../assets/icons/clock.svg";
 import useDebounce from "../hooks/useDebounce";
-import useWeatherData from "../hooks/useWeatherData";
 import { WEEKDAY_OPTIONS, TIMEOFDAY_OPTIONS } from "../utils/constants";
+import ChartContainer from "../components/ChartContainer";
+import useWeatherData from "../hooks/useWeatherData";
 
 const Home = () => {
   const [location, setLocation] = useState<string>("");
-  const [weekday, setWeekday] = useState<number>(WEEKDAY_OPTIONS[0].value);
-  const [timeOfDay, setTimeOfDay] = useState<number>(
-    TIMEOFDAY_OPTIONS[0].value
-  );
+  const [weekday, setWeekday] = useState<number>(0);
+  const [timeOfDay, setTimeOfDay] = useState<number>(0);
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const debouncedLocation = useDebounce(location, 500);
-  const { data, error } = useWeatherData(debouncedLocation);
-  console.log(data, error);
+  const { weatherData, isLoading, isError, error } = useWeatherData(
+    debouncedLocation,
+    startDate,
+    isMobile
+  );
 
-  const handleLocationChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value);
+  const previousPage = () => {
+    const pageSize = isMobile ? 6 : 13;
+
+    setStartDate((prevStartDate) => {
+      const newStartDate = new Date(prevStartDate);
+      newStartDate.setDate(newStartDate.getDate() - pageSize - 1);
+      return newStartDate;
+    });
+  };
+
+  const nextPage = () => {
+    const pageSize = isMobile ? 6 : 13;
+
+    setStartDate((prevStartDate) => {
+      const newStartDate = new Date(prevStartDate);
+      newStartDate.setDate(newStartDate.getDate() + pageSize + 1);
+      return newStartDate;
+    });
   };
 
   return (
-    <div className="px-4 pt-10 m-auto max-w-[1200px]">
-      <div className="grid grid-cols-12 gap-4 pb-6 border-b-4 border-primary">
+    <div className="px-4 py-10 m-auto max-w-[1200px]">
+      <div className="grid grid-cols-12 gap-4 pb-4 border-b-4 border-primary">
         <div className="col-span-12 md:col-span-6 lg:col-span-4 lg:col-start-2">
           <TextField
             name="location"
             placeholder="Enter a location"
             value={location}
-            onChange={handleLocationChange}
+            onChange={(e) => setLocation(e.target.value)}
             icon={LocationIcon}
             alt="Location Icon"
           />
@@ -57,6 +77,18 @@ const Home = () => {
           />
         </div>
       </div>
+      {isError ? (
+        <h4 className="text-3xl text-center mt-10">{error as string}</h4>
+      ) : (
+        <ChartContainer
+          weatherData={weatherData}
+          weekday={weekday}
+          timeOfDay={timeOfDay}
+          isLoading={isLoading}
+          previousPage={previousPage}
+          nextPage={nextPage}
+        />
+      )}
     </div>
   );
 };

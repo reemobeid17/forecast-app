@@ -1,6 +1,6 @@
 import { Option } from "./types";
 
-const WEEKDAYS = [
+export const WEEKDAYS = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -15,50 +15,48 @@ export const WEEKDAY_OPTIONS: Option[] = WEEKDAYS.map((day, index) => ({
   label: `Every ${day}`,
 }));
 
-const TIMEOFDAY = ["Morning", "Afternoon", "Evening"];
+export const TIME_OF_DAY = ["Morning", "Afternoon", "Evening"];
+export const HOUR_RANGES = [
+  {
+    start: 7,
+    end: 12,
+  },
+  {
+    start: 12,
+    end: 17,
+  },
+  {
+    start: 17,
+    end: 22,
+  },
+];
 
-export const TIMEOFDAY_OPTIONS: Option[] = TIMEOFDAY.map((time, index) => ({
+export const TIMEOFDAY_OPTIONS: Option[] = TIME_OF_DAY.map((time, index) => ({
   value: index,
   label: time,
 }));
 
-// export const WEEKDAYS = {
-//   0: "Sunday",
-//   1: "Monday",
-//   2: "Tuesday",
-//   3: "Wednesday",
-//   4: "Thursday",
-//   5: "Friday",
-//   6: "Saturday",
-// };
+export const ARBITRARY_LINES = {
+  id: "arbitraryLine",
+  beforeDatasetsDraw: (chart: any) => {
+    const {
+      ctx,
+      chartArea: { top, bottom },
+      scales: { x },
+    } = chart;
+    const firstLine = 2;
+    const secondLine = 7;
 
-// export const WEEKDAYS = [
-//   {
-//     value: 0,
-//     label: "Sunday",
-//   },
-//   {
-//     value: 1,
-//     label: "Monday",
-//   },
-//   {
-//     value: 2,
-//     label: "Tuesday",
-//   },
-//   {
-//     value: 3,
-//     label: "Wednesday",
-//   },
-//   {
-//     value: 4,
-//     label: "Thursday",
-//   },
-//   {
-//     value: 5,
-//     label: "Friday",
-//   },
-//   {
-//     value: 6,
-//     label: "Saturday",
-//   },
-// ];
+    ctx.save();
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.moveTo(x.getPixelForValue(firstLine), top);
+    ctx.lineTo(x.getPixelForValue(firstLine), bottom);
+    ctx.moveTo(x.getPixelForValue(secondLine), top);
+    ctx.lineTo(x.getPixelForValue(secondLine), bottom);
+    ctx.stroke();
+    ctx.restore();
+  },
+};

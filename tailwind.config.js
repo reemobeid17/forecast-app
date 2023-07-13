@@ -49,6 +49,13 @@ module.exports = {
         secondary: "#ED5C5C",
         tertiary: "#3F3F3F",
       },
+      height: {
+        22: "5.5rem", // 88px
+        56: "14rem", // 224px
+        64: "16rem", // 256px
+        72: "18rem", // 288px
+        80: "20rem", // 320px
+      },
       animation: {
         "spin-once": "rotate 0.3s linear",
         "spin-once-reverse": "rotate-reverse 0.3s linear",

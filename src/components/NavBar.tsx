@@ -11,7 +11,7 @@ const NavBar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="fixed top-0 w-full bg-white">
+    <header className="fixed top-0 w-full bg-white shadow-md z-[1000]">
       <div className="flex items-center justify-between mx-auto my-4 px-4">
         <div className="relative z-[1000] py-2" role="button">
           <Link

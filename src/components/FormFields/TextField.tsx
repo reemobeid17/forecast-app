@@ -26,7 +26,7 @@ const TextField = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className="outline-none w-full"
+        className="outline-none w-full text-2xl font-bold"
       />
     </div>
   );

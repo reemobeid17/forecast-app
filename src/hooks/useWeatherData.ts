@@ -1,26 +1,32 @@
 import { useQuery } from "react-query";
+import fetchWeatherData, { WeatherData } from "../api/weather";
+import { formatDate } from "../utils/dates";
 
-const useWeatherData = (location: string) => {
-  const { data, isLoading, isError, error } = useQuery(
-    ["weatherData", location],
+const useWeatherData = (
+  location: string,
+  startDate: Date,
+  isMobile: boolean
+) => {
+  const { data, isLoading, isError, error } = useQuery<WeatherData>(
+    ["weatherData", location, startDate, isMobile],
     async () => {
-      console.log(
-        "fetching weather data",
+      const pageSize = isMobile ? 6 : 13;
+      let endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + pageSize);
+      console.log("useWeatherData", isMobile, pageSize, startDate, endDate);
+      const weatherData = await fetchWeatherData({
         location,
-        process.env.REACT_APP_VISUAL_CROSSING_API_KEY
-      );
-      const encodedLocation = encodeURIComponent(location);
-      const response = await fetch(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodedLocation}?unitGroup=metric&key=${process.env.REACT_APP_VISUAL_CROSSING_API_KEY}&contentType=json`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
+        startDate: formatDate(startDate),
+        endDate: formatDate(endDate),
+      });
+      return weatherData;
+    },
+    {
+      retry: false,
     }
   );
 
-  return { data, isLoading, isError, error };
+  return { weatherData: data, isLoading, isError, error };
 };
 
 export default useWeatherData;
