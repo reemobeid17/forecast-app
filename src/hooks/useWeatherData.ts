@@ -13,7 +13,7 @@ const useWeatherData = (
       const pageSize = isMobile ? 6 : 13;
       let endDate = new Date(startDate);
       endDate.setDate(endDate.getDate() + pageSize);
-      console.log("useWeatherData", isMobile, pageSize, startDate, endDate);
+
       const weatherData = await fetchWeatherData({
         location,
         startDate: formatDate(startDate),
@@ -23,6 +23,7 @@ const useWeatherData = (
     },
     {
       retry: false,
+      staleTime: 1000 * 60 * 60, // 1 hour
     }
   );
 

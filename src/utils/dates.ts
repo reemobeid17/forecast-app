@@ -45,7 +45,6 @@ export const drawLines = (timeOfDayStart: number, timeOfDayEnd: number) => {
     } = chart;
     const firstLine = 2;
     const secondLine = timeOfDayEnd - timeOfDayStart + firstLine;
-    console.log(firstLine, secondLine, timeOfDayEnd, timeOfDayStart);
 
     ctx.save();
     ctx.setLineDash([5, 5]);
