@@ -29,7 +29,6 @@ const ChartContainer = ({
 
   useEffect(() => {
     if (!weatherData) return;
-    console.log(weatherData);
     const filteredData = weatherData?.days
       .map((day) => ({
         ...day,
@@ -71,7 +70,9 @@ const ChartContainer = ({
             {dayOfWeekData?.map((day, index) => (
               <div
                 key={day.datetime}
-                className="col-span-12 lg:col-start-2 lg:col-end-12 lg:col-span-6"
+                className={clsx("col-span-12 lg:col-span-6", {
+                  "lg:col-span-12": dayOfWeekData.length === 1,
+                })}
               >
                 <ChartHeader day={day} index={index} />
                 {day.hours?.length ? (

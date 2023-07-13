@@ -50,7 +50,6 @@ const fetchWeatherData = async ({
     const apiURL = `${WEATHER_API}${encodedLocation}/${startDate}/${endDate}?${params.toString()}`;
     const response = await axios.get(apiURL);
     const weatherData = await response.data;
-
     return weatherData;
   } catch (error) {
     if (isAxiosError(error)) {
